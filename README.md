@@ -3,6 +3,11 @@ Boilerplate of the full-stack Next.js application prepared to start my side proj
 
 ## Getting started
 
+Before you start working with this project, make sure you have Node.js 20 installed. If you are using `nvm` tool, just run:
+```bash
+nvm use
+```
+
 First, install all necessary dependencies:
 ```bash
 npm i
