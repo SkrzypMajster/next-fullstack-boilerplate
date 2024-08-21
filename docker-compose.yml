@@ -1,0 +1,29 @@
+x-common: &common
+  image: next-fullstack-boilerplate
+  labels:
+    com.app: next_fullstack_boilerplate
+  networks:
+    - app_network
+
+services:
+  next:
+    <<: *common
+    working_dir: /app
+    container_name: next
+    depends_on:
+      - postgres
+    ports:
+      - 3000:3000
+
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USERNAME: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_NAME}
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    name: next_fullstack_boilerplate

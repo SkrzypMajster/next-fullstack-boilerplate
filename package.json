@@ -10,7 +10,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "docker:build": "docker build -t next-fullstack-boilerplate:local -f ./docker/dev/Dockerfile .",
+    "docker:build-prod": "docker build -t next-fullstack-boilerplate:latest -f ./docker/prod/Dockerfile .",
+    "docker:start": "docker compose up next",
+    "docker:start-prod": "docker compose up next -d"
   },
   "dependencies": {
     "next": "14.2.5",
