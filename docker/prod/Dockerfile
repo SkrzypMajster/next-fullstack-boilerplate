@@ -34,6 +34,7 @@ WORKDIR /app
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/prisma ./prisma
 
 # Set the correct permission for prerender cache
 RUN mkdir .next

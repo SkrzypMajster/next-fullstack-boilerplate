@@ -14,9 +14,13 @@
     "docker:build": "docker build -t next-fullstack-boilerplate:local -f ./docker/dev/Dockerfile .",
     "docker:build-prod": "docker build -t next-fullstack-boilerplate:latest -f ./docker/prod/Dockerfile .",
     "docker:start": "docker compose up next",
-    "docker:start-prod": "docker compose up next -d"
+    "docker:start-prod": "docker compose up next -d",
+    "db-push": "docker compose run --rm node npx prisma db push",
+    "migrations:generate": "docker compose run --rm node npx prisma migrate dev",
+    "migrations:run": "docker compose run --rm node npx prisma migrate deploy"
   },
   "dependencies": {
+    "@prisma/client": "5.18.0",
     "next": "14.2.5",
     "react": "18.3.1",
     "react-dom": "18.3.1"
@@ -28,6 +32,7 @@
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",
     "postcss": "8.4.41",
+    "prisma": "5.18.0",
     "tailwindcss": "3.4.10",
     "typescript": "5.5.4"
   }

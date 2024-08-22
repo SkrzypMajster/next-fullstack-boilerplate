@@ -24,6 +24,11 @@ services:
     networks:
       - app_network
 
+  node:
+    image: next-fullstack-boilerplate
+    networks:
+      - app_network
+
 networks:
   app_network:
     name: next_fullstack_boilerplate
