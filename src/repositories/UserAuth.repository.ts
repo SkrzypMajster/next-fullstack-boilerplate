@@ -1,5 +1,5 @@
-import prisma from "@/lib/db";
-import { comparePasswords, generatePasswordHash } from "@/tools/crypto";
+import prisma from '@/lib/db';
+import { comparePasswords, generatePasswordHash } from '@/tools/crypto';
 
 class UserAuthRepository {
   async findUserByEmail(email: string) {
@@ -40,13 +40,13 @@ class UserAuthRepository {
     const hashedPassword = await generatePasswordHash(password);
 
     const insertResult = await prisma.userAuth.create({
-        data: {
-            email,
-            password: hashedPassword,
-            user: {
-                create: { name }
-            }
-        }
+      data: {
+        email,
+        password: hashedPassword,
+        user: {
+          create: { name },
+        },
+      },
     });
 
     return insertResult;

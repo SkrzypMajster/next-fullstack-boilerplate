@@ -1,21 +1,20 @@
-"use server";
-import { redirect, RedirectType } from "next/navigation";
-import { revalidatePath } from "next/cache";
+'use server';
+import { redirect } from 'next/navigation';
 
-import { signIn, signOut } from "@/lib/auth";
-import { userAuthRepository } from "@/repositories/UserAuth.repository";
+import { signIn, signOut } from '@/lib/auth';
+import { userAuthRepository } from '@/repositories/UserAuth.repository';
 
 export const loginAction = async (formData: FormData) => {
   try {
-    await signIn("credentials", formData, { redirectTo: "/" });
+    await signIn('credentials', formData, { redirectTo: '/' });
   } catch {}
 };
 
 export const registerAction = async (formData: FormData) => {
-  const name = formData.get("name")?.toString();
-  const email = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
-  const confirmPassword = formData.get("confirm-password")?.toString();
+  const name = formData.get('name')?.toString();
+  const email = formData.get('email')?.toString();
+  const password = formData.get('password')?.toString();
+  const confirmPassword = formData.get('confirm-password')?.toString();
 
   if (!name || !email || !password || !confirmPassword) {
     return;
@@ -27,9 +26,9 @@ export const registerAction = async (formData: FormData) => {
 
   await userAuthRepository.registerUser(email, password, { name });
 
-  redirect("/login");
+  redirect('/login');
 };
 
 export const logoutAction = async () => {
-  await signOut({ redirectTo: "/login" });
+  await signOut({ redirectTo: '/login' });
 };

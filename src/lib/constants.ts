@@ -1,1 +1,1 @@
-export const APP_NAME = "Next Fullstack Boilerplate";
+export const APP_NAME = 'Next Fullstack Boilerplate';
