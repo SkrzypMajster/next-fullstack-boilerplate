@@ -16,7 +16,10 @@
     "docker:build": "docker build -t next-fullstack-boilerplate:local -f ./docker/dev/Dockerfile .",
     "docker:build-prod": "docker build -t next-fullstack-boilerplate:latest -f ./docker/prod/Dockerfile .",
     "docker:start": "docker compose up next",
-    "docker:start-prod": "docker compose up next -d"
+    "docker:start-prod": "docker compose up next -d",
+    "db:push": "docker compose run --rm node npx prisma db push",
+    "db:run-migrations": "docker compose run --rm node npx prisma migrate deploy",
+    "db:generate-migration": "docker compose run --rm node npx prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "6.18.0",
