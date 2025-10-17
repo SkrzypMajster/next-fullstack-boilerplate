@@ -1,0 +1,31 @@
+x-common:
+  volumes: &volumes
+    - .next:/app/.next/
+    - .:/app:delegated
+    - ./.env.dist:/app/.env.dist
+    - ./.env:/app/.env
+
+services:
+  next:
+    image: next-fullstack-boilerplate:local
+    volumes: *volumes
+    command: [sh, -c, './node_modules/.bin/next dev']
+    depends_on:
+      - adminer
+      - postgres
+
+  adminer:
+    image: adminer:5.4.1
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+    networks:
+      - app_network
+    environment:
+      ADMINER_DEFAULT_SERVER: 'postgres'
+
+  node:
+    image: next-fullstack-boilerplate:local
+    volumes: *volumes
