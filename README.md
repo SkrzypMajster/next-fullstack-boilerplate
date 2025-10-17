@@ -1,40 +1,132 @@
 # Next.js Full-stack Boilerplate
 Boilerplate of the full-stack Next.js application created to start my side projects faster.
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Tech-stack
 
-## Getting Started
+- **Framework**: `Next.js` 15, working on `React` 19
+- **Styling & Design System**: `Tailwind`
+- **Code formatting**: `ESLint` & `Prettier`
 
-First, run the development server:
+## Local environment setup (for npm)
 
+### Preconditions
+To run this project locally, you need to have the Node.js environment with the version specified in the `.nvmrc` file.
+
+You can easily configure the required Node.js version using the nvm tool using the command below:
+
+```shell
+nvm use
+```
+
+### Project setup
+
+1. Install all necessary dependencies:
+```bash
+npm i
+```
+
+2. Create your local environment variables file from the dist file:
+```bash
+cp .env.dist .env
+```
+
+3. Run the development server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Congratulations! Now your project is bootstrapped successfully, and you can work with the application locally in an npm environment.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local environment setup (Docker)
 
-## Learn More
+If you want to work locally inside a Docker environment, please follow these steps:
 
-To learn more about Next.js, take a look at the following resources:
+1. Create your local environment variables file from the dist file:
+```bash
+cp .env.dist .env
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Build an override Docker Compose file with some special local environment configuration:
+```bash
+cp docker-compose.override.yml.dist docker-compose.override.yml
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Build a development version of the application's Docker image:
+```bash
+npm run docker:build
+```
 
-## Deploy on Vercel
+4. Install packages inside the application's Docker container:
+```bash
+npm run shell
+npm i
+exit
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Run your dockerized local environment:
+```bash
+npm run docker:start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+Congratulations! Now your project is bootstrapped successfully, and you can work with the application locally in a Docker environment.
+
+## Deployment
+
+### Building for production environment
+
+To build application the locally, run:
+```bash
+npm run build
+```
+
+If you are working on a local Docker environment, run:
+```bash
+npm run docker:build
+```
+
+To build a production version of the application's Docker image, run:
+```bash
+npm run docker:build-prod
+```
+
+***Important: Remember to remove the `docker-compose.override.yml` file, because it was used only for local environment configuration.***
+
+---
+
+### Running application on production environment
+
+To run your production application, use the following command:
+```bash
+npm run docker:start-prod
+```
+
+If your application has an external database, you can also run only the Next.js application container by using the following command:
+```bash
+docker run -p 3000:3000 --name next_fullstack_boilerplate --network=next_fullstack_boilerplate next-fullstack-boilerplate
+```
+
+It is always possible to write your own docker-compose file, which runs the production version of the application's Docker image. 
+
+## Scripts
+```shell
+npm run [command_name]
+```
+
+- `dev` - Launches the app in development mode on [http://localhost:3000](http://localhost:3000)
+- `build` - Compiles and bundles the app
+- `start` - Runs the application built using the build command
+- `lint` - Validate the code using ESLint and Prettier
+- `lint:fix` - Validate and fix the code using ESLint and Prettier
+- `shell` - Runs npm CLI inside Docker container for running commands
+- `docker:build` - Builds application Docker image for local environment
+- `docker:build-prod` - Builds application Docker image for production environment
+- `docker:start` - Run the application locally in a Docker environment
+- `docker:start-prod` - Run production version of the application in Docker environment
+
+## Resources
+- [Next.js documentation](https://nextjs.org/docs/app/getting-started)
+- [Tailwind CSS documentation](https://tailwindcss.com/docs)
