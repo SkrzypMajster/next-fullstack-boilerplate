@@ -11,7 +11,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "shell": "docker compose run --rm node sh",
+    "docker:build": "docker build -t next-fullstack-boilerplate:local -f ./docker/dev/Dockerfile .",
+    "docker:build-prod": "docker build -t next-fullstack-boilerplate:latest -f ./docker/prod/Dockerfile .",
+    "docker:start": "docker compose up next",
+    "docker:start-prod": "docker compose up next -d"
   },
   "dependencies": {
     "next": "16.0.0",

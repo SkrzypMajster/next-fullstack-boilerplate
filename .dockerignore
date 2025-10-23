@@ -1,0 +1,12 @@
+# npm dependencies
+node_modules
+
+# Docker files
+docker
+.dockerignore
+docker-compose.yml
+
+# Project documentation files
+README.md
+LICENSE
+.gitignore
