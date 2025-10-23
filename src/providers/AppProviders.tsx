@@ -7,7 +7,5 @@ type AppProvidersProps = {
 };
 
 export const AppProviders = ({ children }: AppProvidersProps) => (
-  <ToastContextProvider>
-    {children}
-  </ToastContextProvider>
+  <ToastContextProvider>{children}</ToastContextProvider>
 );
