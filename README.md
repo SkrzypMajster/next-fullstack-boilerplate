@@ -3,7 +3,8 @@ Boilerplate of the full-stack Next.js application created to start my side proje
 
 ## Tech-stack
 
-- **Framework**: `Next.js` 15, working on `React` 19
+- **Framework**: `Next.js` 16, working on `React` 19
+- **Database connection**: `Prisma ORM`
 - **Styling & Design System**: `Tailwind`
 - **Code formatting**: `ESLint` & `Prettier`
 
@@ -126,6 +127,9 @@ npm run [command_name]
 - `docker:build-prod` - Builds application Docker image for production environment
 - `docker:start` - Run the application locally in a Docker environment
 - `docker:start-prod` - Run production version of the application in Docker environment
+- `db:push`: - Applies all the changes specified in schema document into the database
+- `db:run-migrations`: Run database migrations
+- `db:generate-migration`: Create new database migration based on changes in Schema document
 
 ## Resources
 - [Next.js documentation](https://nextjs.org/docs/app/getting-started)
