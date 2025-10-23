@@ -6,6 +6,7 @@ Boilerplate of the full-stack Next.js application created to start my side proje
 - **Framework**: `Next.js` 16, working on `React` 19
 - **Database connection**: `Prisma ORM`
 - **Styling & Design System**: `Tailwind`
+- **Forms Management**: `react-hook-form` with `Zod` validation library
 - **Code formatting**: `ESLint` & `Prettier`
 
 ## Local environment setup (for npm)
