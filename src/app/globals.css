@@ -1,6 +1,13 @@
 @import "tailwindcss";
 
 :root {
+  /* Override react-toastify CSS variables */
+  --toastify-toast-top: 96px;
+  --toastify-toast-width: 100%;
+  --toastify-toast-min-height: auto;
+  --toastify-toast-padding: 0px;
+  --toastify-color-light: transparent;
+
   --background: #ffffff;
   --foreground: #171717;
 }
