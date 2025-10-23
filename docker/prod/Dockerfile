@@ -21,6 +21,9 @@ COPY --from=deps /app/node_modules ./node_modules
 # Copy source code
 COPY . .
 
+# Generate Prisma client based on schema
+RUN npx prisma generate
+
 # Build Next.js application
 RUN npm run build
 
@@ -35,6 +38,9 @@ WORKDIR /app
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
+
+# Generate Prisma client based on schema
+RUN npx prisma generate
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
