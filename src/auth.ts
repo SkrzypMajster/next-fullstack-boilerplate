@@ -1,5 +1,6 @@
 import NextAuth, { CredentialsSignin } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+export { useSession } from 'next-auth/react';
 
 import { userAuthRepository } from '@/repositories/UserAuth.repository';
 
