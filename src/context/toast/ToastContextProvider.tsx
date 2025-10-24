@@ -2,7 +2,7 @@
 import { ReactNode } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 
-import { Alert } from '@/components/Alert';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 import { ShowToastFn, ToastContext } from './ToastContext';
 
@@ -12,7 +12,14 @@ type ToastContextProviderProps = {
 
 export const ToastContextProvider = ({ children }: ToastContextProviderProps) => {
   const showToast: ShowToastFn = ({ type, message, options }) => {
-    toast(<Alert type={type}>{message}</Alert>, options);
+    toast(
+      <div>
+        <Alert variant={type === 'error' ? 'destructive' : 'default'}>
+          <AlertDescription>{message}</AlertDescription>
+        </Alert>
+      </div>,
+      options,
+    );
   };
 
   return (

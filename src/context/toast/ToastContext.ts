@@ -2,12 +2,12 @@
 import { createContext, ReactNode } from 'react';
 import { ToastOptions } from 'react-toastify';
 
-import { AlertType } from '@/components/Alert';
+type AlertType = 'info' | 'error' | 'success' | 'warning';
 
 type ShowToastProps = {
   message: ReactNode | string;
   options?: ToastOptions<unknown>;
-  type?: AlertType;
+  type: AlertType;
 };
 
 export type ShowToastFn = (props: ShowToastProps) => void;
