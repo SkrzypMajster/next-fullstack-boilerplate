@@ -7,7 +7,7 @@ type UseFormProps<T extends FieldValues> = Pick<UseBaseFormProps<T>, 'defaultVal
   formSchema: any;
 };
 
-export const useForm = <T extends FieldValues>({ defaultValues, mode = 'onBlur', formSchema }: UseFormProps<T>) => {
+export const useForm = <T extends FieldValues>({ defaultValues, mode, formSchema }: UseFormProps<T>) => {
   const resolver = zodResolver(formSchema);
 
   const { watch, control, handleSubmit, formState, reset } = useBaseForm<T>({
