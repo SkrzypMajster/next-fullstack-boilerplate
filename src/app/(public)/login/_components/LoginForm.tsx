@@ -5,6 +5,8 @@ import { redirect } from 'next/navigation';
 import { useToast } from '@/context/toast';
 import { loginAction } from '@/actions/auth';
 import { APP_NAME } from '@/lib/contants';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 export const LoginForm = () => {
   const showToast = useToast();
@@ -33,7 +35,7 @@ export const LoginForm = () => {
       className="mx-4 flex w-full max-w-sm flex-col space-y-4 rounded-xl border border-white p-4"
     >
       <h1 className="text-center text-xl">Login to {APP_NAME}</h1>
-      <input
+      <Input
         required
         name="email"
         placeholder="Email"
@@ -42,7 +44,7 @@ export const LoginForm = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <input
+      <Input
         required
         name="password"
         type="password"
@@ -51,9 +53,9 @@ export const LoginForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button className="w-full rounded-sm border border-white py-1" type="submit">
+      <Button className="w-full rounded-sm border border-white py-1" type="submit">
         Submit
-      </button>
+      </Button>
     </form>
   );
 };
