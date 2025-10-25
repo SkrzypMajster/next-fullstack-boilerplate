@@ -1,1 +1,1 @@
-export { WorkflowIcon } from 'lucide-react';
+export { WorkflowIcon, LogOutIcon } from 'lucide-react';
