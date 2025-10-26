@@ -1,1 +1,10 @@
-export { WorkflowIcon, LogOutIcon, LayoutDashboardIcon, XIcon, MenuIcon, PanelLeftIcon } from 'lucide-react';
+export {
+  WorkflowIcon,
+  LogOutIcon,
+  LayoutDashboardIcon,
+  XIcon,
+  MenuIcon,
+  PanelLeftIcon,
+  MoonIcon,
+  SunIcon,
+} from 'lucide-react';

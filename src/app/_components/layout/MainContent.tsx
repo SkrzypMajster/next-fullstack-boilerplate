@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { sidebarItems } from '@/lib/sidebar';
 import { usePathname } from '@/hooks/usePathname';
 
+import { ModeToggle } from './ModeToggle';
+
 type MainContentProps = {
   children: ReactNode;
 };
@@ -33,6 +35,9 @@ export const MainContent = ({ children }: MainContentProps) => {
         <div className="flex flex-1 items-center justify-between">
           {!!activeSidebarItem && <h1 className="text-xl font-semibold">{activeSidebarItem.title}</h1>}
           {!!isSettingsPage && <h1 className="text-xl font-semibold">Settings</h1>}
+        </div>
+        <div className="ml-auto">
+          <ModeToggle />
         </div>
       </header>
       {children}
