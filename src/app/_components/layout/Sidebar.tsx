@@ -10,6 +10,7 @@ import { AppIcon } from '@/app/_components/AppIcon';
 
 import { LogoutButton } from './LogoutButton';
 import { UserLabel } from './UserLabel';
+import { SettingsPageLink } from './SettingsPageLink';
 
 export const Sidebar = () => {
   const { isActivePath } = usePathname();
@@ -55,7 +56,7 @@ export const Sidebar = () => {
 
         <div className="border-border border-t p-3">
           <div className="space-y-1">
-            {/* TODO: Add Settings page link */}
+            <SettingsPageLink />
             <LogoutButton />
             <UserLabel />
           </div>
