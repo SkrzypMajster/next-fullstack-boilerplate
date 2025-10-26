@@ -8,4 +8,5 @@ export {
   PanelLeftIcon,
   MoonIcon,
   SunIcon,
+  SettingsIcon,
 } from 'lucide-react';
