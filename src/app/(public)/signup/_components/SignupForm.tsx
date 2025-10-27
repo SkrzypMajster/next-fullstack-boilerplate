@@ -1,9 +1,9 @@
 'use client';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { toast } from 'sonner';
 
 import { signupAction } from '@/actions/auth';
-import { useToast } from '@/context/toast';
 import { useForm } from '@/hooks/useForm';
 import { Button } from '@/components/ui/button';
 import { Field, FieldDescription, FieldGroup } from '@/components/ui/field';
@@ -12,7 +12,6 @@ import { InputField } from '@/app/_components/fields/InputField';
 import { signupFormDefaultValues, SignupFormSchema } from './SignupForm.schema';
 
 export const SignupForm = () => {
-  const showToast = useToast();
   const { control, handleSubmit, formState } = useForm({
     formSchema: SignupFormSchema,
     defaultValues: signupFormDefaultValues,
@@ -22,10 +21,7 @@ export const SignupForm = () => {
     const { isSuccess, errors } = await signupAction(values);
 
     if (errors) {
-      showToast({
-        type: 'error',
-        message: String(Object.values(errors)[0]),
-      });
+      toast.error(String(Object.values(errors)[0]));
     }
 
     if (isSuccess) {
