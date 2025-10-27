@@ -1,5 +1,4 @@
 'use client';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { toast } from 'sonner';
 
@@ -18,14 +17,10 @@ export const SignupForm = () => {
   });
 
   const handleFormSubmit = handleSubmit(async (values) => {
-    const { isSuccess, errors } = await signupAction(values);
+    const { errors } = await signupAction(values);
 
-    if (errors) {
+    if (Object.keys(errors).length) {
       toast.error(String(Object.values(errors)[0]));
-    }
-
-    if (isSuccess) {
-      redirect('/');
     }
   });
 
