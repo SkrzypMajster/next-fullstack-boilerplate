@@ -1,15 +1,24 @@
 import prisma from '@/lib/db';
+import { UserAccount, UserCredentials } from '@/types/users';
 import { comparePasswords, generatePasswordHash } from '@/utils/crypto';
 
 class UserAuthRepository {
-  async findUserByEmail(email: string) {
+  private async findUserCredentialsByEmail(email: string): Promise<Nullable<UserCredentials>> {
     return prisma.userAuth.findUnique({
-      where: {
-        email: email,
-      },
+      where: { email },
       select: {
         email: true,
         password: true,
+      },
+    });
+  }
+
+  async findUserAccountByEmail(email: string): Promise<Nullable<UserAccount>> {
+    return prisma.userAuth.findUnique({
+      where: { email },
+      select: {
+        email: true,
+        role: true,
         user: {
           select: {
             id: true,
@@ -21,23 +30,23 @@ class UserAuthRepository {
     });
   }
 
-  async findUserByCredentials(email: string, password: string) {
-    const user = await this.findUserByEmail(email);
+  async findUserByCredentials(email: string, password: string): Promise<Nullable<UserAccount>> {
+    const userCredentials = await this.findUserCredentialsByEmail(email);
 
-    if (!user) {
+    if (!userCredentials) {
       return null;
     }
 
-    const isPasswordValid = await comparePasswords(password, user.password);
+    const isPasswordValid = await comparePasswords(password, userCredentials.password);
 
     if (!isPasswordValid) {
       return null;
     }
 
-    return user;
+    return this.findUserAccountByEmail(email);
   }
 
-  async registerUser(email: string, password: string, { name }: { name: string }) {
+  async registerUser(email: string, password: string, name: string) {
     const hashedPassword = await generatePasswordHash(password);
 
     const insertResult = await prisma.userAuth.create({

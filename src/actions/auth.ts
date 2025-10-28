@@ -64,7 +64,7 @@ export const signupAction = async ({ name, email, password, confirmPassword }: S
   }
 
   // Check if user with provided email address already exist in database
-  const userToRegister = await userAuthRepository.findUserByEmail(email);
+  const userToRegister = await userAuthRepository.findUserAccountByEmail(email);
   if (userToRegister) {
     return {
       isSuccess: false,
@@ -75,7 +75,8 @@ export const signupAction = async ({ name, email, password, confirmPassword }: S
   }
 
   // Create new user and login automatically
-  await userAuthRepository.registerUser(email, password, { name });
+  await userAuthRepository.registerUser(email, password, name);
+
   return loginAction({ email, password });
 };
 
