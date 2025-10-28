@@ -1,27 +1,8 @@
-import NextAuth, { CredentialsSignin, DefaultSession } from 'next-auth';
+import NextAuth, { CredentialsSignin } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 export { useSession } from 'next-auth/react';
 
-import { UserRole } from '@/types/users';
 import { userAuthRepository } from '@/repositories/UserAuth.repository';
-
-declare module 'next-auth' {
-  /**
-   * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
-   */
-  interface Session {
-    user: {
-      id: string;
-      role: UserRole;
-      /**
-       * By default, TypeScript merges new interface properties and overwrites existing ones.
-       * In this case, the default session user properties will be overwritten,
-       * with the new ones defined above. To keep the default session user properties,
-       * you need to add them back into the newly declared interface.
-       */
-    } & DefaultSession['user'];
-  }
-}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
@@ -61,9 +42,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return {
           ...token,
           id: user.id,
-          // TODO: Handle role type for User interface
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          role: (user as any).role,
+          role: user.role,
         };
       }
 
@@ -75,7 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         user: {
           ...session.user,
           role: token.role,
-          id: token.id as string,
+          id: token.id,
         },
       };
     },
