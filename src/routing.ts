@@ -11,7 +11,7 @@ type Route = {
 
 export const routes: Route[] = [
   {
-    path: '/dashboard',
+    path: '/',
     name: 'Dashboard',
     role: ['USER'],
     IconComponent: LayoutDashboardIcon,
