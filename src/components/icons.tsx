@@ -9,4 +9,6 @@ export {
   MoonIcon,
   SunIcon,
   SettingsIcon,
+  UploadIcon,
+  SaveIcon,
 } from 'lucide-react';
