@@ -1,10 +1,9 @@
+import { ZodType } from 'zod';
 import { useForm as useBaseForm, FieldValues, UseFormProps as UseBaseFormProps } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 type UseFormProps<T extends FieldValues> = Pick<UseBaseFormProps<T>, 'defaultValues' | 'mode'> & {
-  // TODO: Figure out how to use ZodType instead of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  formSchema: any;
+  formSchema: ZodType<T, T>;
 };
 
 export const useForm = <T extends FieldValues>({ defaultValues, mode, formSchema }: UseFormProps<T>) => {
