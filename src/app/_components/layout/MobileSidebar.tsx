@@ -2,9 +2,9 @@
 import Link from 'next/link';
 
 import { APP_NAME } from '@/lib/contants';
-import { sidebarItems } from '@/lib/sidebar';
 import { cn } from '@/utils/cn';
 import { usePathname } from '@/hooks/usePathname';
+import { useSidebarState } from '@/context/sidebarState';
 import { useMobileMenuState } from '@/context/mobileMenuState';
 import { XIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -26,6 +26,7 @@ export const MobileSidebarOverlay = () => {
 
 export const MobileSidebar = () => {
   const { isActivePath } = usePathname();
+  const { sidebarItems } = useSidebarState();
   const { mobileMenuOpen, handleMobileMenuOpen } = useMobileMenuState();
 
   return (
@@ -50,19 +51,19 @@ export const MobileSidebar = () => {
 
         <ScrollArea className="flex-1 px-3 py-2">
           <div className="space-y-1">
-            {sidebarItems.map((item) => (
-              <div key={item.title} className="mb-1">
+            {sidebarItems.map(({ name, path, IconComponent }) => (
+              <div key={name} className="mb-1">
                 <Link
-                  href={item.path}
+                  href={path}
                   className={cn(
                     'flex w-full items-center justify-between rounded-2xl px-3 py-2 text-sm font-medium',
-                    isActivePath(item.path) ? 'bg-primary/10 text-primary' : 'hover:bg-muted',
+                    isActivePath(path) ? 'bg-primary/10 text-primary' : 'hover:bg-muted',
                   )}
                   onClick={() => handleMobileMenuOpen(false)}
                 >
                   <div className="flex items-center gap-3">
-                    {item.icon}
-                    <span>{item.title}</span>
+                    <IconComponent />
+                    <span>{name}</span>
                   </div>
                 </Link>
               </div>

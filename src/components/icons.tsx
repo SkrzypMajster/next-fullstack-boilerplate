@@ -1,3 +1,4 @@
+export type { LucideIcon as Icon } from 'lucide-react';
 export {
   WorkflowIcon,
   LogOutIcon,
