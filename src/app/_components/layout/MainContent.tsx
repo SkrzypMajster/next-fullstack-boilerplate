@@ -6,22 +6,17 @@ import { useSidebarState } from '@/context/sidebarState';
 import { useMobileMenuState } from '@/context/mobileMenuState';
 import { MenuIcon, PanelLeftIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { sidebarItems } from '@/lib/sidebar';
-import { usePathname } from '@/hooks/usePathname';
 
 import { ModeToggle } from './ModeToggle';
+import { Breadcrumbs } from './Breadcrumbs';
 
 type MainContentProps = {
   children: ReactNode;
 };
 
 export const MainContent = ({ children }: MainContentProps) => {
-  const { isActivePath } = usePathname();
   const { sidebarOpen, handleSidebarOpen } = useSidebarState();
   const { handleMobileMenuOpen } = useMobileMenuState();
-
-  const activeSidebarItem = sidebarItems.find((item) => isActivePath(item.path));
-  const isSettingsPage = isActivePath('/settings');
 
   return (
     <main className={cn('min-h-screen transition-all duration-300 ease-in-out', sidebarOpen ? 'md:pl-72' : 'md:pl-0')}>
@@ -33,8 +28,7 @@ export const MainContent = ({ children }: MainContentProps) => {
           <PanelLeftIcon className="h-5 w-5" />
         </Button>
         <div className="flex flex-1 items-center justify-between">
-          {!!activeSidebarItem && <h1 className="text-xl font-semibold">{activeSidebarItem.title}</h1>}
-          {!!isSettingsPage && <h1 className="text-xl font-semibold">Settings</h1>}
+          <Breadcrumbs />
         </div>
         <div className="ml-auto">
           <ModeToggle />
