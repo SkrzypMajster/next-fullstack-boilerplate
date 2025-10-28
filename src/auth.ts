@@ -4,7 +4,13 @@ export { useSession } from 'next-auth/react';
 
 import { userAuthRepository } from '@/repositories/UserAuth.repository';
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const {
+  handlers,
+  signIn,
+  signOut,
+  auth,
+  unstable_update: updateSession,
+} = NextAuth({
   session: {
     strategy: 'jwt',
   },
@@ -36,13 +42,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, trigger, user, session }) {
       if (user) {
         // User object is available only after singin
         return {
           ...token,
           id: user.id,
           role: user.role,
+        };
+      }
+
+      if (trigger === 'update' && session?.user) {
+        return {
+          ...token,
+          name: session.user.name,
         };
       }
 
@@ -53,6 +66,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ...session,
         user: {
           ...session.user,
+          name: token.name,
           role: token.role,
           id: token.id,
         },
