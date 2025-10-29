@@ -8,6 +8,7 @@ import { userRepository } from '@/repositories/User.repository';
 type UpdateUserProfileActionPayload = {
   email: string;
   name: string;
+  image: Nullable<string>;
 };
 
 export const updateUserProfileAction = async ({

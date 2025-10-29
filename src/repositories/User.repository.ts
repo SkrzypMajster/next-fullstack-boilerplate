@@ -17,13 +17,12 @@ class UserRepository {
     });
   }
 
-  async updateUserData(id: string, data: { name: string }) {
+  async updateUserData(id: string, data: { name: string; image: Nullable<string> }) {
     return prisma.user.update({
       where: { id },
       data: {
         name: data.name,
-        // TODO: Handle import user image into database via base64 encoding
-        image: null,
+        image: data.image,
       },
     });
   }
