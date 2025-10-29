@@ -16,6 +16,17 @@ class UserRepository {
       },
     });
   }
+
+  async updateUserData(id: string, data: { name: string }) {
+    return prisma.user.update({
+      where: { id },
+      data: {
+        name: data.name,
+        // TODO: Handle import user image into database via base64 encoding
+        image: null,
+      },
+    });
+  }
 }
 
 export const userRepository = new UserRepository();

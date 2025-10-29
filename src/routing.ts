@@ -1,5 +1,5 @@
 import { UserRole } from '@/types/users';
-import { Icon, LayoutDashboardIcon } from '@/components/icons';
+import { Icon, LayoutDashboardIcon, SettingsIcon } from '@/components/icons';
 
 type Route = {
   path: string;
@@ -9,7 +9,16 @@ type Route = {
   hidden?: boolean;
 };
 
+export const settingsPageRoute: Route = {
+  path: '/settings',
+  name: 'Settings',
+  role: ['USER', 'ADMINISTRATOR'],
+  IconComponent: SettingsIcon,
+  hidden: true,
+};
+
 export const routes: Route[] = [
+  settingsPageRoute,
   {
     path: '/',
     name: 'Dashboard',

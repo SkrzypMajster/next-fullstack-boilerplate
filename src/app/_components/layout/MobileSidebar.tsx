@@ -13,6 +13,7 @@ import { AppIcon } from '@/app/_components/AppIcon';
 
 import { LogoutButton } from './LogoutButton';
 import { UserLabel } from './UserLabel';
+import { SettingsPageLink } from './SettingsPageLink';
 
 export const MobileSidebarOverlay = () => {
   const { mobileMenuOpen, handleMobileMenuOpen } = useMobileMenuState();
@@ -73,7 +74,7 @@ export const MobileSidebar = () => {
 
         <div className="border-border border-t p-3">
           <div className="space-y-1">
-            {/* TODO: Add Settings page link */}
+            <SettingsPageLink />
             <LogoutButton />
             <UserLabel />
           </div>
