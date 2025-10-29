@@ -40,5 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# editor files
+.idea/
+.vscode/
+
 # docker
 docker-compose.override.yml
