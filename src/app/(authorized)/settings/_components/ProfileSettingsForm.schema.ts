@@ -5,6 +5,7 @@ import { UserAccount } from '@/types/users';
 export const ProfileSettingsFormSchema = z.object({
   name: z.string().min(1, { error: 'This field is required' }),
   email: z.email(),
+  image: z.string().nullable(),
 });
 
 export type ProfileSettingsFormSchemaType = z.infer<typeof ProfileSettingsFormSchema>;
@@ -14,4 +15,5 @@ export const getProfileSettingsFormDefaultValues = (
 ): ProfileSettingsFormSchemaType => ({
   name: userData?.user.name || '',
   email: userData?.email || '',
+  image: userData?.user.image || null,
 });
