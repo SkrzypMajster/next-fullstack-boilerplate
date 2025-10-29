@@ -36,8 +36,8 @@ WORKDIR /app
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/prisma ./prisma
+COPY --chown=node:node --from=builder /app/public ./public
+COPY --chown=node:node --from=builder /app/prisma ./prisma
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
@@ -47,6 +47,11 @@ RUN chown node:node .next
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --chown=node:node --from=builder /app/.next/standalone ./
 COPY --chown=node:node --from=builder /app/.next/static ./.next/static
+
+# Adding additional configuration for database seed script
+RUN npm i -g tsx
+COPY --chown=node:node --from=builder /app/node_modules/bcryptjs ./node_modules/bcryptjs
+COPY --chown=node:node --from=builder /app/src/utils/crypto.ts ./src/utils/crypto.ts
 
 USER node
 
