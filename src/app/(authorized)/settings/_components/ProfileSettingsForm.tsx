@@ -74,11 +74,7 @@ export const ProfileSettingsForm = ({ profileDataPromise }: ProfileSettingsFormP
       </div>
 
       <div className="flex justify-end">
-        <Button
-          type="submit"
-          disabled={!formState.isValid}
-          className="gap-2 hover:cursor-pointer"
-        >
+        <Button type="submit" disabled={!formState.isValid} className="gap-2 hover:cursor-pointer">
           <SaveIcon className="h-4 w-4" />
           Save Changes
         </Button>
