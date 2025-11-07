@@ -21,8 +21,8 @@ export const UserAvatar = ({ name, imageSrc, size = 'sm' }: UserAvatarProps) => 
   return (
     <Avatar
       className={cn({
-        'h-5 w-5': size === 'sm',
-        'h-20 w-20': size === 'lg',
+        'size-5': size === 'sm',
+        'size-20': size === 'lg',
       })}
     >
       <AvatarImage src={imageSrc} alt={name} />
