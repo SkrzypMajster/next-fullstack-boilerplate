@@ -10,7 +10,10 @@ type UpdateUserProfileActionPayload = {
   name: string;
 };
 
-export const updateUserProfileAction = async ({ email, ...data }: UpdateUserProfileActionPayload): ServerActionResponse => {
+export const updateUserProfileAction = async ({
+  email,
+  ...data
+}: UpdateUserProfileActionPayload): ServerActionResponse => {
   const userAuth = await userAuthRepository.findUserAccountByEmail(email);
 
   if (!userAuth) {
