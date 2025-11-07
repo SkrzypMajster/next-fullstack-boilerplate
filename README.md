@@ -5,100 +5,103 @@ Boilerplate of the full-stack Next.js application created to start my side proje
 
 - **Framework**: `Next.js` 16, working on `React` 19
 - **Database connection**: `Prisma ORM`
-- **Styling & Design System**: `Tailwind`
+- **Authentication**: `Next Auth 5`, `bcryptjs` for passwords encryption
+- **Styling**: `Tailwind 4`, 
+- **Design System**: `shadcn/ui` design system, `lucide-react` icons library
 - **Forms Management**: `react-hook-form` with `Zod` validation library
 - **Client-side Notifications**: `sooner`
 - **Code formatting**: `ESLint` & `Prettier`
+- **Deployment environment** - `Docker`
 
-## Local environment setup (for npm)
+## Local environment setup
+
+Local environment is fully-dockerized. To start working locally on this project, please follow these steps:
 
 ### Preconditions
-To run this project locally, you need to have the Node.js environment with the version specified in the `.nvmrc` file.
 
-You can easily configure the required Node.js version using the nvm tool using the command below:
-
-```shell
-nvm use
-```
-
-### Project setup
-
-1. Install all necessary dependencies:
-```bash
-npm i
-```
-
-2. Create your local environment variables file from the dist file:
-```bash
-cp .env.dist .env
-```
-
-3. Run the development server:
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-Congratulations! Now your project is bootstrapped successfully, and you can work with the application locally in an npm environment.
-
-## Local environment setup (Docker)
-
-If you want to work locally inside a Docker environment, please follow these steps:
+The instructions below need to be executed once during project initialization.
+If you have already executed them, you can skip this section.
 
 1. Create your local environment variables file from the dist file:
 ```bash
 cp .env.dist .env
 ```
 
-2. Build an override Docker Compose file with some special local environment configuration:
+2. Run following command to generate `AUTH_SECRET` and paste it into `.env` file:
+```bash
+npx auth secret --raw
+```
+
+3. Fill in the rest of the missing environment variables from the `env.dist` file.
+
+4. Create an override Docker Compose file with some special local environment configuration from the dist file:
 ```bash
 cp docker-compose.override.yml.dist docker-compose.override.yml
 ```
 
-3. Build a development version of the application's Docker image:
+### Project setup
+
+1. Build a development version of the application's Docker image:
 ```bash
 npm run docker:build
 ```
 
-4. Install packages inside the application's Docker container:
+2. Enter application's shell to perform actions inside the Docker container:
 ```bash
 npm run shell
+```
+
+3. Install dependencies inside shell:
+```bash
 npm i
+```
+
+4. Exit application's shell:
+```bash
 exit
 ```
 
-5. Run your dockerized local environment:
+5. Run local docker environment:
 ```bash
 npm run docker:start
 ```
 
-6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Open application's shell again in another terminal window:
+```bash
+npm run shell
+```
 
-Congratulations! Now your project is bootstrapped successfully, and you can work with the application locally in a Docker environment.
+7. Run the following command to create the database client, run all migrations, and seed the database with initial data.
+```bash
+npm run db:init
+```
+
+8. Exit application's shell:
+```bash
+exit
+```
+
+9. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+Congratulations! Now your project is bootstrapped successfully!
 
 ## Deployment
 
-### Building for production environment
+The application has been adapted for deployment in the Docker environment.
 
 To build application the locally, run:
 ```bash
-npm run build
-```
-
-If you are working on a local Docker environment, run:
-```bash
 npm run docker:build
 ```
+
+### Building for production environment
 
 To build a production version of the application's Docker image, run:
 ```bash
 npm run docker:build-prod
 ```
 
-***Important: Remember to remove the `docker-compose.override.yml` file, because it was used only for local environment configuration.***
-
----
+**Important**: Remember to remove the `docker-compose.override.yml` file, because it was used only for local environment configuration.
 
 ### Running application on production environment
 
@@ -112,7 +115,7 @@ If your application has an external database, you can also run only the Next.js 
 docker run -p 3000:3000 --name next_fullstack_boilerplate --network=next_fullstack_boilerplate next-fullstack-boilerplate
 ```
 
-It is always possible to write your own docker-compose file, which runs the production version of the application's Docker image. 
+It is always possible to write your own docker-compose file, which runs the production version of the application's Docker image.
 
 ## Scripts
 ```shell
@@ -129,10 +132,14 @@ npm run [command_name]
 - `docker:build-prod` - Builds application Docker image for production environment
 - `docker:start` - Run the application locally in a Docker environment
 - `docker:start-prod` - Run production version of the application in Docker environment
-- `db:push`: - Applies all the changes specified in schema document into the database
-- `db:run-migrations`: Run database migrations
-- `db:generate-migration`: Create new database migration based on changes in Schema document
+- `db:seed`: - Seed database with initial data
+- `db:generate-client` - Generate a Prisma client for the database
+- `db:run-migrations` - Run database migrations
+- `db:add-migration` - Create new database migration based on changes in Schema document
+- `db:init` - Single command for database initialization (generating Prisma client, running migrations and seeding database with initial data)
 
 ## Resources
 - [Next.js documentation](https://nextjs.org/docs/app/getting-started)
 - [Tailwind CSS documentation](https://tailwindcss.com/docs)
+- [Shadcn/ui documentation](https://ui.shadcn.com/docs)
+- [Lucide Icons](https://lucide.dev/icons)
