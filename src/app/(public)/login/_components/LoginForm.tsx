@@ -11,7 +11,6 @@ import { InputField } from '@/app/_components/fields/InputField';
 
 import { loginFormDefaultValues, LoginFormSchema } from './LoginForm.schema';
 
-
 export const LoginForm = () => {
   const { control, handleSubmit, formState } = useForm({
     formSchema: LoginFormSchema,

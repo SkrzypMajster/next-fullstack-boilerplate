@@ -2,11 +2,11 @@
 import { use } from 'react';
 
 import { useSession } from '@/auth';
-import { showSuccessNotification } from '@/notifications';
+import { showErrorNotification, showSuccessNotification } from '@/notifications';
+import { updateUserProfileAction } from '@/actions/user';
 import { UserAccount } from '@/types/users';
 import { getFirstErrorMessage } from '@/utils/errors';
 import { useForm } from '@/hooks/useForm';
-import { updateUserProfileAction } from '@/actions/user';
 import { Button } from '@/components/ui/button';
 import { UploadIcon, SaveIcon } from '@/components/icons';
 import { UserAvatar } from '@/app/_components/UserAvatar';
@@ -39,7 +39,7 @@ export const ProfileSettingsForm = ({ profileDataPromise }: ProfileSettingsFormP
     const errorMessage = getFirstErrorMessage(errors);
 
     if (errorMessage) {
-      
+      showErrorNotification(errorMessage);
     }
 
     if (isSuccess) {

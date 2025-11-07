@@ -1,9 +1,9 @@
 import { toast } from 'sonner';
 
 export const showErrorNotification = (message: string) => {
-    toast.error(message);
-}
+  toast.error(message);
+};
 
 export const showSuccessNotification = (message: string) => {
-    toast.success(message);
-}
+  toast.success(message);
+};
