@@ -1,10 +1,10 @@
 'use client';
-import { logout } from '@/actions/auth';
+import { logoutAction } from '@/actions/auth';
 import { LogOutIcon } from '@/components/icons';
 
 export const LogoutButton = () => {
   const handleLogout = async () => {
-    logout();
+    logoutAction();
   };
 
   return (

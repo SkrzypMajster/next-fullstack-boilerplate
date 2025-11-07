@@ -19,7 +19,7 @@ export const SignupForm = () => {
   const handleFormSubmit = handleSubmit(async (values) => {
     const { errors } = await signupAction(values);
 
-    if (Object.keys(errors).length) {
+    if (errors && Object.keys(errors).length) {
       toast.error(String(Object.values(errors)[0]));
     }
   });

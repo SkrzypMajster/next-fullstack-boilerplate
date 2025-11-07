@@ -1,48 +1,21 @@
 'use server';
-import { AuthError, CredentialsSignin } from 'next-auth';
-
-import { signIn, signOut } from '@/auth';
 import { userAuthRepository } from '@/repositories/UserAuth.repository';
 
-type LoginCredentials = {
-  email: string;
-  password: string;
-};
+import { loginAction } from './login';
 
-type SignupPayload = {
+type SignupActionPayload = {
   name: string;
   email: string;
   password: string;
   confirmPassword: string;
 };
 
-export const loginAction = async ({ email, password }: LoginCredentials) => {
-  try {
-    await signIn('credentials', { email, password, redirectTo: '/' });
-    return {
-      isSuccess: true,
-      errors: {},
-    };
-  } catch (error) {
-    if (error instanceof CredentialsSignin) {
-      return {
-        isSuccess: false,
-        errors: { credentials: 'Incorrect email or password!' },
-      };
-    }
-
-    if (error instanceof AuthError) {
-      return {
-        isSuccess: false,
-        errors: { [error.type]: error.message },
-      };
-    }
-
-    throw error;
-  }
-};
-
-export const signupAction = async ({ name, email, password, confirmPassword }: SignupPayload) => {
+export const signupAction = async ({
+  name,
+  email,
+  password,
+  confirmPassword,
+}: SignupActionPayload): ServerActionResponse => {
   // Check if all required fields exist in payload
   if (!name || !email || !password || !confirmPassword) {
     return {
@@ -79,7 +52,3 @@ export const signupAction = async ({ name, email, password, confirmPassword }: S
 
   return loginAction({ email, password });
 };
-
-export async function logout() {
-  await signOut();
-}

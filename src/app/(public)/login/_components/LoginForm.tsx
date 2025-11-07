@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 
 import { loginAction } from '@/actions/auth';
+import { getFirstErrorMessage } from '@/utils/errors';
 import { useForm } from '@/hooks/useForm';
 import { Button } from '@/components/ui/button';
 import { Field, FieldDescription, FieldGroup } from '@/components/ui/field';
@@ -18,9 +19,10 @@ export const LoginForm = () => {
 
   const handleFormSubmit = handleSubmit(async ({ email, password }) => {
     const { errors } = await loginAction({ email, password });
+    const errorMessage = getFirstErrorMessage(errors);
 
-    if (Object.keys(errors).length) {
-      toast.error(String(Object.values(errors)[0]));
+    if (errorMessage) {
+      toast.error(errorMessage);
     }
   });
 
