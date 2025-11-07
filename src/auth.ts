@@ -35,7 +35,6 @@ export const {
           id: user.user.id,
           email: user.email,
           name: user.user.name,
-          image: user.user.image,
           role: user.role,
         };
       },
