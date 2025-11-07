@@ -36,7 +36,7 @@ export const ProfileSettingsForm = ({ profileDataPromise }: ProfileSettingsFormP
       email: profileData.email,
     });
 
-    if (Object.keys(errors).length) {
+    if (errors && Object.keys(errors).length) {
       toast.error(String(Object.values(errors)[0]));
     }
 
