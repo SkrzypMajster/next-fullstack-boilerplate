@@ -1,9 +1,10 @@
 'use client';
 import { use } from 'react';
-import { toast } from 'sonner';
 
 import { useSession } from '@/auth';
+import { showSuccessNotification } from '@/notifications';
 import { UserAccount } from '@/types/users';
+import { getFirstErrorMessage } from '@/utils/errors';
 import { useForm } from '@/hooks/useForm';
 import { updateUserProfileAction } from '@/actions/user';
 import { Button } from '@/components/ui/button';
@@ -23,7 +24,6 @@ export const ProfileSettingsForm = ({ profileDataPromise }: ProfileSettingsFormP
   const { control, handleSubmit, formState } = useForm({
     formSchema: ProfileSettingsFormSchema,
     defaultValues: getProfileSettingsFormDefaultValues(profileData),
-    mode: 'onChange',
   });
 
   const handleFormSubmit = handleSubmit(async (values) => {
@@ -36,12 +36,14 @@ export const ProfileSettingsForm = ({ profileDataPromise }: ProfileSettingsFormP
       email: profileData.email,
     });
 
-    if (errors && Object.keys(errors).length) {
-      toast.error(String(Object.values(errors)[0]));
+    const errorMessage = getFirstErrorMessage(errors);
+
+    if (errorMessage) {
+      
     }
 
     if (isSuccess) {
-      toast.success('Profile data updated successfully!');
+      showSuccessNotification('Profile data updated successfully!');
       session.update();
     }
   });

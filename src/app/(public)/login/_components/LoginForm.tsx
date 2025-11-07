@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
-import { toast } from 'sonner';
 
+import { showErrorNotification } from '@/notifications';
 import { loginAction } from '@/actions/auth';
 import { getFirstErrorMessage } from '@/utils/errors';
 import { useForm } from '@/hooks/useForm';
@@ -10,6 +10,7 @@ import { Field, FieldDescription, FieldGroup } from '@/components/ui/field';
 import { InputField } from '@/app/_components/fields/InputField';
 
 import { loginFormDefaultValues, LoginFormSchema } from './LoginForm.schema';
+
 
 export const LoginForm = () => {
   const { control, handleSubmit, formState } = useForm({
@@ -22,7 +23,7 @@ export const LoginForm = () => {
     const errorMessage = getFirstErrorMessage(errors);
 
     if (errorMessage) {
-      toast.error(errorMessage);
+      showErrorNotification(errorMessage);
     }
   });
 

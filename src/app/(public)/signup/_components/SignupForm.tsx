@@ -1,8 +1,9 @@
 'use client';
 import Link from 'next/link';
-import { toast } from 'sonner';
 
+import { showErrorNotification } from '@/notifications';
 import { signupAction } from '@/actions/auth';
+import { getFirstErrorMessage } from '@/utils/errors';
 import { useForm } from '@/hooks/useForm';
 import { Button } from '@/components/ui/button';
 import { Field, FieldDescription, FieldGroup } from '@/components/ui/field';
@@ -18,9 +19,10 @@ export const SignupForm = () => {
 
   const handleFormSubmit = handleSubmit(async (values) => {
     const { errors } = await signupAction(values);
+    const errorMessage = getFirstErrorMessage(errors);
 
-    if (errors && Object.keys(errors).length) {
-      toast.error(String(Object.values(errors)[0]));
+    if (errorMessage) {
+      showErrorNotification(errorMessage);
     }
   });
 
